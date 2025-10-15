@@ -11,7 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ScreenshotHelpper
+public class ScreenshotHelper
 {
     public static void captureScreenshot(WebDriver driver, String testName)
     {

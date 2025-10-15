@@ -1,5 +1,6 @@
 package UI.test.suites;
 
+import UI.constants.ConstValues;
 import environment.ConfigProvider;
 import jdk.jfr.Description;
 import org.openqa.selenium.*;
@@ -32,7 +33,7 @@ public class WaitForButtonTest
     {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.id(buttonId)));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+        ((JavascriptExecutor) driver).executeScript(ConstValues.SCROLL_CONST, button);
         button.click();
     }
 

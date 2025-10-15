@@ -62,7 +62,7 @@ public class FillFormTest
         permanentAddress.sendKeys(ConstValues.FILL_FORM_PERMANENT_ADDRESS);
 
         WebElement submitButton = driver.findElement(By.cssSelector(submitCssSelector));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", submitButton);
+        ((JavascriptExecutor) driver).executeScript(ConstValues.SCROLL_CONST, submitButton);
         submitButton.click();
 
         try { Thread.sleep(1000); }

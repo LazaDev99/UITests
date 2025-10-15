@@ -1,7 +1,7 @@
 package UI.test.suites;
 
 import UI.constants.ConstValues;
-import UI.utils.ScreenshotHelpper;
+import UI.utils.ScreenshotHelper;
 import environment.ConfigProvider;
 import jdk.jfr.Description;
 import org.openqa.selenium.*;
@@ -71,7 +71,7 @@ public class LoginTest
     {
         if (ITestResult.FAILURE == result.getStatus())
         {
-            ScreenshotHelpper.captureScreenshot(driver, result.getName());
+            ScreenshotHelper.captureScreenshot(driver, result.getName());
         }
 
         if (driver != null)
