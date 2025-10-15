@@ -68,13 +68,13 @@ public class FillFormTest
         try { Thread.sleep(1000); }
         catch (InterruptedException ignored) {}
 
-        // Validate output
+        //get output elements
         WebElement nameOutput = driver.findElement(By.id(outputFullNameId));
         WebElement emailOutput = driver.findElement(By.id(outputEmailCss));
         WebElement currentAddressOutput = driver.findElement(By.xpath(outputCurrentAddressXpath));
         WebElement permanentAddressOutput = driver.findElement(By.xpath(outputPermanentAddressXpath));
 
-        //assert
+        //assert output
         softAssert.assertFillFormWithValidData(nameOutput, emailOutput, currentAddressOutput, permanentAddressOutput);
     }
 
@@ -85,3 +85,5 @@ public class FillFormTest
             driver.quit();
     }
 }
+
+//Also, we can create FillFormPage to create better approach.

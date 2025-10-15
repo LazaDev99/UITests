@@ -2,7 +2,6 @@ package UI.test.suites;
 
 import UI.constants.ConstValues;
 import UI.test.asserts.CheckBoxAssert;
-import UI.test.asserts.FillFormAssert;
 import environment.ConfigProvider;
 import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -27,7 +26,7 @@ public class CheckBoxTest
         softAssert = new CheckBoxAssert();
 
         //checkBox config setup
-        checkBoxInputId = ConfigProvider.getCheckBoxIputID();
+        checkBoxInputId = ConfigProvider.getCheckBoxInputID();
         checkBoxLabelCss = ConfigProvider.getCheckBoxLabelCSS();
     }
 

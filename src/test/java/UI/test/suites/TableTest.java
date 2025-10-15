@@ -1,4 +1,4 @@
-package UI.suites;
+package UI.test.suites;
 
 import UI.constants.ConstValues;
 import environment.ConfigProvider;
@@ -19,10 +19,12 @@ public class TableTest
     @BeforeMethod
     public void prepareData()
     {
+        //driver setup
         driver = new EdgeDriver();
         driver.manage().window().maximize();
         driver.get(ConfigProvider.getTableTestUrl());
 
+        //config setup
         tableCompanyXPath = ConfigProvider.getTableCompanyXpath();
     }
 
@@ -30,14 +32,17 @@ public class TableTest
     @Description("Verify company names and validate")
     public void extractCompanyNamesAndValidate()
     {
+        //get list of company cells
         List<WebElement> companyCells = driver.findElements(By.xpath(tableCompanyXPath));
 
+        //go through all cells and get list of company names
         List<String> companyNames = new ArrayList<>();
         for (WebElement cell : companyCells)
         {
             companyNames.add(cell.getText().trim());
         }
 
+        //assert company name
         Assert.assertTrue(companyNames.contains(ConstValues.COMPANY_ERNEST_HANDEL), "company name isn't matching");
     }
 

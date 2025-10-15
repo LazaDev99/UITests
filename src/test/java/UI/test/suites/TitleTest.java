@@ -13,21 +13,23 @@ import org.testng.annotations.Test;
 public class TitleTest
 {
     WebDriver driver;
-    String url;
 
     @BeforeMethod
     public void prepareData()
     {
+        //driver setup
         driver = new EdgeDriver();
-        url = ConfigProvider.getBasicPageUrl();
+        driver.get( ConfigProvider.getBasicPageUrl());
     }
 
     @Test
     @Description("Verify title name")
     public void getTitle()
     {
-        driver.get(url);
+        //get title
         String pageTitle = driver.getTitle();
+
+        //assert title name
         Assert.assertEquals(pageTitle, ConstValues.EXAMPLE_DOMAIN_TITLE, "Page title didn't match");
     }
 

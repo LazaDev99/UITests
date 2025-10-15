@@ -24,7 +24,7 @@ public class ScreenshotHelper
         String filename = "screenshots/" + testName + "_" + time + ".png";
         File destinationPath = new File(filename);
 
-        //create if doesn't exist
+        //create file if it's not created
         destinationPath.getParentFile().mkdirs();
 
         try

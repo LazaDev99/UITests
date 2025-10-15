@@ -23,7 +23,7 @@ public class WaitForButtonTest
         driver.get(ConfigProvider.getButtonTestUrl());
         driver.manage().window().maximize();
 
-        //button setup
+        //config setup
         buttonId = ConfigProvider.getButtonID();
     }
 
