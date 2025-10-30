@@ -1,28 +1,28 @@
 package UI.test.suites;
 
 import UI.constants.ConstValues;
-import UI.pages.LoginPage;
+import UI.test.base.TestBase;
 import UI.utils.ScreenshotHelper;
 import environment.ConfigProvider;
+import io.qameta.allure.Allure;
 import jdk.jfr.Description;
 import org.openqa.selenium.*;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-public class LoginTest
+import java.io.ByteArrayInputStream;
+
+
+public class LoginTest extends TestBase
 {
-    WebDriver driver;
     String successfulLoginID;
     LoginPage loginPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void prepareData()
     {
-        //driver setup
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
+        //setup driver url
         driver.get(ConfigProvider.getLoginTestUrl());
 
         //config setup
@@ -32,44 +32,64 @@ public class LoginTest
         loginPage = new LoginPage(driver);
     }
 
-    @Test
+    @Test(groups = {"smoke","regression","integration"})
     @Description("Verify login with valid credentials")
     public void loginWithValidCredentials()
     {
-        //login to the page
-        loginPage.login(ConstValues.LOGIN_USERNAME, ConstValues.LOGIN_PASSWORD);
+        Allure.step("INFO: Login user with valid data");
+        login(ConstValues.LOGIN_USERNAME, ConstValues.LOGIN_PASSWORD);
+        Allure.step("PASS: Login finished");
 
-        //get login message
+        Allure.step("INFO: Find response text");
         WebElement message = driver.findElement(By.id(successfulLoginID));
         String messageText = message.getText();
+        Allure.step("PASS: Response text found");
 
-        //login assert
-        Assert.assertTrue(messageText.contains(ConstValues.LOGIN_ASSERT_MESSAGE_SUCCESSFUL), "Success message not displayed");
+        Allure.step("INFO: Assert login");
+        Assert.assertTrue(messageText.contains("You logged into a secure area!"), "Success message not displayed");
+        Allure.step("PASS: Assert finished");
     }
 
-    @Test
-    @Description("Verify login with invalid credentials and take screenshot when test fail")
+    @Test(groups = {"regression", "knownBugs"})
+    @Description("Verify login with invalid credentials")
     public void loginWithInvalidCredentials()
     {
-        //login to the page
-        loginPage.login(ConstValues.LOGIN_INVALID_USERNAME, ConstValues.LOGIN_INVALID_PASSWORD);
+        Allure.step("INFO: Login user with invalid data");
+        login(ConstValues.LOGIN_INVALID_USERNAME, ConstValues.LOGIN_INVALID_PASSWORD);
+        Allure.step("PASS: Login finished");
 
-        //get login message
+        Allure.step("INFO: Find response text");
         WebElement message = driver.findElement(By.id(successfulLoginID));
         String messageText = message.getText();
+        Allure.step("PASS: Response text found");
 
-        //login assert
-        Assert.assertTrue(messageText.contains(ConstValues.LOGIN_ASSERT_MESSAGE_SUCCESSFUL) || messageText.contains("Your password is invalid!"), "Expected error message not displayed");
+        Allure.step("INFO: Assert login");
+        Assert.assertTrue(messageText.contains("Changed for screenshot test") || messageText.contains("Your password is invalid!"), "Expected error message not displayed");
+        Allure.step("PASS: Assert finished");
     }
 
-    @AfterMethod
-    public void quitDriver(ITestResult result)
+    @AfterMethod(alwaysRun = true)
+    public void takeScreenshot(ITestResult result)
     {
-        //take a screenshot if test fail
         if (ITestResult.FAILURE == result.getStatus())
-            ScreenshotHelper.captureScreenshot(driver, result.getName());
+        {
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            Allure.addAttachment(result.getName() + " - Screenshot", new ByteArrayInputStream(screenshot));
+        }
+    }
 
-        if (driver != null)
-            driver.quit();
+    public void login(String username, String password)
+    {
+        WebElement userField = driver.findElement(By.id("username"));
+        WebElement passField = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+
+        userField.clear();
+        userField.sendKeys(username);
+
+        passField.clear();
+        passField.sendKeys(password);
+
+        loginButton.click();
     }
 }

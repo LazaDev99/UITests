@@ -1,42 +1,32 @@
 package UI.test.suites;
 
 import UI.constants.ConstValues;
+import UI.test.base.TestBase;
 import environment.ConfigProvider;
+import io.qameta.allure.Allure;
 import jdk.jfr.Description;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-public class TitleTest
+public class TitleTest extends TestBase
 {
-    WebDriver driver;
-
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void prepareData()
     {
-        //driver setup
-        driver = new EdgeDriver();
-        driver.get( ConfigProvider.getBasicPageUrl());
+        //setup driver url
+        driver.get(ConfigProvider.getBasicPageUrl());
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     @Description("Verify title name")
     public void getTitle()
     {
-        //get title
+        Allure.step("INFO: Get page title");
         String pageTitle = driver.getTitle();
+        Allure.step("PASS: Page title found");
 
-        //assert title name
+        Allure.step("INFO: Assert page title");
         Assert.assertEquals(pageTitle, ConstValues.EXAMPLE_DOMAIN_TITLE, "Page title didn't match");
-    }
-
-    @AfterMethod
-    public void quitDriver()
-    {
-        if (driver != null)
-            driver.quit();
+        Allure.step("PASS: Assert finished");
     }
 }
