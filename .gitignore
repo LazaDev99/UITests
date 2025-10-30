@@ -5,6 +5,9 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
+.allure/
+screenshot/
+allure-results/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml

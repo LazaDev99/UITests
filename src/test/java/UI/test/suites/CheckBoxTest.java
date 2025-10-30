@@ -2,25 +2,22 @@ package UI.test.suites;
 
 import UI.constants.ConstValues;
 import UI.test.asserts.CheckBoxAssert;
-import UI.test.asserts.FillFormAssert;
+import UI.test.base.TestBase;
 import environment.ConfigProvider;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class CheckBoxTest
+public class CheckBoxTest extends TestBase
 {
-    WebDriver driver;
     CheckBoxAssert softAssert;
     String checkBoxLabelCss, checkBoxInputId;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void prepareData()
     {
-        //driver setup
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
+        //setup driver url
         driver.get(ConfigProvider.getCheckBoxTestUrl());
 
         //assert setup
@@ -31,28 +28,29 @@ public class CheckBoxTest
         checkBoxLabelCss = ConfigProvider.getCheckBoxLabelCSS();
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void verifyCheckboxStates()
     {
         //find elements
+        Allure.step("INFO: Find checkbox elements");
         WebElement checkboxLabel = driver.findElement(By.cssSelector(checkBoxLabelCss));
         WebElement checkboxInput = driver.findElement(By.id(checkBoxInputId));
+        Allure.step("PASS: Elements are found");
 
         //soft assert before click
+        Allure.step("INFO: Assert before click");
         softAssert.assertCheckBox(checkboxLabel, checkboxInput);
+        Allure.step("PASS: Assert before click finished");
 
         //click
+        Allure.step("INFO: Click");
         ((JavascriptExecutor) driver).executeScript(ConstValues.SCROLL_CONST, checkboxLabel);
         checkboxLabel.click();
+        Allure.step("PASS: Click is finished");
 
         //assert after click
+        Allure.step("INFO: Assert after click");
         Assert.assertTrue(checkboxInput.isSelected(), "Checkbox was not selected after click");
-    }
-
-    @AfterMethod
-    public void quitDriver()
-    {
-        if (driver != null)
-            driver.quit();
+        Allure.step("PASS: Assert after click is finished");
     }
 }
