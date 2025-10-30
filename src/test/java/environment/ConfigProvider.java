@@ -30,9 +30,9 @@ public class ConfigProvider extends ConfigManager
     //checkBox test config
     public static String getCheckBoxTestUrl() { return  getValue("CHECK_BOX_URL"); }
     public static String getCheckBoxLabelCSS() { return  getValue("CHECK_BOX_LABEL_CSS"); }
-    public static String getCheckBoxIputID() { return  getValue("CHECK_BOX_INPUT"); }
+    public static String getCheckBoxInputID() { return  getValue("CHECK_BOX_INPUT"); }
 
     //login test config
     public static String getLoginTestUrl() { return  getValue("LOGIN_TEST_URL"); }
-    public static String getLoginTestSuccessfullID() { return  getValue("LOGIN_TEST_SUCCESSFUL_ID"); }
+    public static String getLoginTestResponseID() { return  getValue("LOGIN_TEST_RESPONSE_ID"); }
 }

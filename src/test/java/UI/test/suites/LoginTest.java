@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 public class LoginTest extends TestBase
 {
     String successfulLoginID;
+    LoginPage loginPage;
 
     @BeforeMethod(alwaysRun = true)
     public void prepareData()
@@ -24,7 +25,11 @@ public class LoginTest extends TestBase
         //setup driver url
         driver.get(ConfigProvider.getLoginTestUrl());
 
-        successfulLoginID = ConfigProvider.getLoginTestSuccessfullID();
+        //config setup
+        successfulLoginID = ConfigProvider.getLoginTestResponseID();
+
+        //login setup
+        loginPage = new LoginPage(driver);
     }
 
     @Test(groups = {"smoke","regression","integration"})

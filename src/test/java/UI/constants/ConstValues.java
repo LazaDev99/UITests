@@ -17,4 +17,6 @@ public class ConstValues
     public static final String LOGIN_INVALID_PASSWORD = "password";
     public static final String LOGIN_USERNAME = "tomsmith";
     public static final String LOGIN_PASSWORD = "SuperSecretPassword!";
+    public static final String LOGIN_ASSERT_MESSAGE_SUCCESSFUL = "You logged into a secure area!";
+
 }

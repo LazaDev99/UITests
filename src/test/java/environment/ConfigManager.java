@@ -1,7 +1,6 @@
 package environment;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,10 +19,6 @@ public class ConfigManager
             Properties properties = new Properties();
             properties.load(inputStream);
             config.put(fileName, properties);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
         }
         catch (IOException e)
         {

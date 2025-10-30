@@ -93,3 +93,5 @@ public class FillFormTest extends TestBase
         Allure.step("PASS: assert finished");
     }
 }
+
+//Also, we can create FillFormPage to create better approach.

@@ -24,7 +24,7 @@ public class CheckBoxTest extends TestBase
         softAssert = new CheckBoxAssert();
 
         //checkBox config setup
-        checkBoxInputId = ConfigProvider.getCheckBoxIputID();
+        checkBoxInputId = ConfigProvider.getCheckBoxInputID();
         checkBoxLabelCss = ConfigProvider.getCheckBoxLabelCSS();
     }
 

@@ -22,6 +22,7 @@ public class TableTest extends TestBase
         //setup driver url
         driver.get(ConfigProvider.getTableTestUrl());
 
+        //config setup
         tableCompanyXPath = ConfigProvider.getTableCompanyXpath();
     }
 
@@ -33,6 +34,7 @@ public class TableTest extends TestBase
         List<WebElement> companyCells = driver.findElements(By.xpath(tableCompanyXPath));
         Allure.step("PASS: Cells are found");
 
+        //go through all cells and get list of company names
         List<String> companyNames = new ArrayList<>();
         for (WebElement cell : companyCells)
         {
